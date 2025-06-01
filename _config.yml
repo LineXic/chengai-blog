@@ -1,7 +1,7 @@
 # Site settings
 title: 承挨的小屋
 SEOTitle: 承挨的小屋 | 承挨汉化组
-header-img: img/home-bg.webp
+header-img: img/home-banner.webp
 email: 478761674@qq.com
 description: "这里是 @承挨 的个人博客，偶尔也会分享一些 Minecraft Addon ，最近开了一个火蝾螈服务器也会在此分享 | 一个为 Minecraft 汉化尽职尽责的汉化组"
 keyword: "承挨汉化组,Minecraft,火蝾螈服务器,承挨个人博客,web,jekyll，blog,chengai"
@@ -73,8 +73,8 @@ netease_comment: false
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "要做一个有 swag 的程序员 <br> React Team @ Meta"
-sidebar-avatar: https://github.com/Huxpro.png # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "一个热爱分享的腐竹"
+sidebar-avatar: https://chengai77a6b.top/img/avatar.webp # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
 featured-tags: true # whether or not using Feature-Tags
