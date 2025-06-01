@@ -1,0 +1,4 @@
+Disallow: /img/
+User-agent: *
+Allow: /
+Sitemap: https://www.chengai77a6b.top/sitemap.xml
