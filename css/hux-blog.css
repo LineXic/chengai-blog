@@ -1694,3 +1694,8 @@ img::-moz-selection {
 .no-scroll {
   overflow-y: hidden;
 }
+/* 添加到 Waline 自定义 CSS 中 */
+.wl-avatar {
+  vertical-align: middle !important; /* 中线对齐 */
+  margin-top: 0 !important; /* 清除上边距 */
+}
