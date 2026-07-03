@@ -169,7 +169,7 @@ sidebar: false
 }
 </style>
 
-{% assign bio_posts = site.categories.传记 | where_exp: "post", "post.hidden != true" %}
+{% assign bio_posts = site.categories["传记"] | where_exp: "post", "post.hidden != true" %}
 {% assign all_persons = '' | split: '' %}
 {% for post in bio_posts %}
     {% unless all_persons contains post.person %}
