@@ -18,12 +18,12 @@ layout: default
     <!-- Sidebar Container -->
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1
       sidebar-container">
-      {% unless page.hide-featured-tags %}
+      {% unless page["hide-featured-tags"] %}
       <!-- Featured Tags -->
       {% include featured-tags.html %}
       {% endunless %}
 
-      {% unless page.hide-friends %}
+      {% unless page["hide-friends"] %}
       <!-- Friends Blog -->
       {% include friends.html %}
       {% endunless %}
@@ -39,7 +39,7 @@ layout: default
     <!-- Sidebar Container -->
     <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
       col-xs-12 sidebar-container">
-      {% unless page.hide-featured-tags %}
+      {% unless page["hide-featured-tags"] %}
       <!-- Featured Tags -->
       {% include featured-tags.html %}
       {% endunless %}
@@ -47,7 +47,7 @@ layout: default
       <!-- Short About -->
       {% include short-about.html %}
 
-      {% unless page.hide-friends %}
+      {% unless page["hide-friends"] %}
       <!-- Friends Blog -->
       {% include friends.html %}
       {% endunless %}
