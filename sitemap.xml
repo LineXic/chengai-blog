@@ -1,0 +1,33 @@
+---
+layout: none
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 处理普通页面 -->
+  {% assign pages = site.pages | where_exp: "page", "page.path contains '.html'" %}
+  {% for page in pages %}
+    {% if page.permalink and page.sitemap != false %}
+    <url>
+      <loc>{{ site.url }}{{ page.url | replace:'index.html','' | replace:'index.htm','' }}</loc>
+      {% if page.last_modified_at %}
+        <lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>
+      {% elsif page.date %}
+        <lastmod>{{ page.date | date_to_xmlschema }}</lastmod>
+      {% endif %}
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+    </url>
+    {% endif %}
+  {% endfor %}
+
+  <!-- 处理文章 -->
+  {% for post in site.posts %}{% unless post.hidden or post.categories contains "传记" %}
+    <url>
+      <loc>{{ site.url }}{{ post.url }}</loc>
+      <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  {% endunless %}{% endfor %}
+</urlset>

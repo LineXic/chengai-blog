@@ -1,0 +1,346 @@
+---
+layout: page
+title: 承挨人物传
+permalink: /biography/
+description: "记录身边的人，记录那些难忘的时光"
+header-img: "img/home-banner.webp"
+sidebar: false
+---
+
+<style>
+.person-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+}
+.person-btn {
+    padding: 10px 24px;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+    text-decoration: none;
+    color: #333;
+}
+.person-btn:hover, .person-btn.active {
+    border-color: #0085a1;
+    background: #0085a1;
+    color: white;
+    text-decoration: none;
+}
+.person-btn:focus, .person-btn:active {
+    text-decoration: none;
+}
+.person-section {
+    margin-bottom: 50px;
+}
+.person-section-title {
+    font-size: 1.8em;
+    border-bottom: 3px solid #0085a1;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.person-badge {
+    font-size: 0.5em;
+    padding: 4px 12px;
+    border-radius: 12px;
+    color: white;
+}
+.badge-autobio {
+    background: #e74c3c;
+}
+.badge-biography {
+    background: #3498db;
+}
+.era-group {
+    margin-bottom: 30px;
+}
+.era-title {
+    font-size: 1.3em;
+    color: #555;
+    margin: 20px 0 15px;
+    padding-left: 15px;
+    border-left: 4px solid #0085a1;
+}
+.bio-card {
+    display: block;
+    padding: 20px 25px;
+    margin-bottom: 15px;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+.bio-card:hover {
+    border-left-color: #0085a1;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    transform: translateX(5px);
+    text-decoration: none;
+    color: #333;
+}
+.bio-card-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.bio-card-meta {
+    font-size: 0.9em;
+    color: #888;
+}
+.bio-card-preview {
+    margin-top: 10px;
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+.bio-search {
+    text-align: center;
+    margin: 20px 0;
+}
+.bio-search input {
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 500px;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.bio-search input:focus {
+    border-color: #0085a1;
+}
+.no-result {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 1.1em;
+}
+
+/* 回到顶部按钮：白色毛玻璃效果 */
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.35s ease;
+    z-index: 1000;
+    text-decoration: none;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.back-to-top:hover, .back-to-top:focus, .back-to-top:active {
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+</style>
+
+{% assign bio_posts = site.categories.传记 | where_exp: "post", "post.hidden != true" %}
+{% assign all_persons = '' | split: '' %}
+{% for post in bio_posts %}
+    {% unless all_persons contains post.person %}
+        {% assign all_persons = all_persons | push: post.person %}
+    {% endunless %}
+{% endfor %}
+
+<div class="person-nav" id="personNav">
+    {% for person in all_persons %}
+    <a href="#person-{{ person | url_encode }}" class="person-btn" data-person="{{ person }}">{{ person }}</a>
+    {% endfor %}
+</div>
+
+<div class="bio-search">
+    <input type="text" id="bioSearch" placeholder="搜索文章标题或内容...">
+</div>
+
+<div id="bioList">
+
+{% assign chengai_posts = bio_posts | where: "person", "承挨" | where: "bio-type", "autobiography" | sort: "order" %}
+{% if chengai_posts.size > 0 %}
+<div class="person-section" data-person="承挨" id="person-{{ "承挨" | url_encode }}">
+    <h2 class="person-section-title">
+        承挨自传
+        <span class="person-badge badge-autobio">自传</span>
+    </h2>
+    {% assign eras = '' | split: '' %}
+    {% for post in chengai_posts %}
+        {% unless eras contains post.era %}
+            {% assign eras = eras | push: post.era %}
+        {% endunless %}
+    {% endfor %}
+    {% for era in eras %}
+    <div class="era-group">
+        <h3 class="era-title">{{ era }}</h3>
+        {% assign era_posts = chengai_posts | where: "era", era | sort: "order" %}
+        {% for post in era_posts %}
+        <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
+            <div class="bio-card-title">{{ post.title }}</div>
+            <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
+            {% if post.subtitle %}
+            <div class="bio-card-preview">{{ post.subtitle }}</div>
+            {% else %}
+            <div class="bio-card-preview">{{ post.content | strip_html | truncate: 100 }}</div>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for person in all_persons %}
+    {% unless person == "承挨" %}
+    {% assign person_bio_posts = bio_posts | where: "person", person | sort: "order" %}
+    {% if person_bio_posts.size > 0 %}
+<div class="person-section" data-person="{{ person }}" id="person-{{ person | url_encode }}">
+    <h2 class="person-section-title">
+        {{ person }}传
+        <span class="person-badge badge-biography">他传</span>
+    </h2>
+    {% for post in person_bio_posts %}
+    <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
+        <div class="bio-card-title">{{ post.title }}</div>
+        <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
+        {% if post.subtitle %}
+        <div class="bio-card-preview">{{ post.subtitle }}</div>
+        {% else %}
+        <div class="bio-card-preview">{{ post.content | strip_html | truncate: 120 }}</div>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
+    {% endif %}
+    {% endunless %}
+{% endfor %}
+
+{% if bio_posts.size == 0 %}
+<div class="no-result">暂无传记文章</div>
+{% endif %}
+
+</div>
+
+<script>
+(function() {
+    var searchInput = document.getElementById('bioSearch');
+    var personBtns = document.querySelectorAll('.person-btn');
+    var personSections = document.querySelectorAll('.person-section');
+    var currentPerson = 'all';
+
+    function filterContent() {
+        var keyword = searchInput.value.toLowerCase().trim();
+        var hasResult = false;
+
+        personSections.forEach(function(section) {
+            var person = section.getAttribute('data-person');
+            var showSection = currentPerson === 'all' || currentPerson === person;
+            var sectionHasVisible = false;
+
+            section.querySelectorAll('.bio-card').forEach(function(card) {
+                var title = card.querySelector('.bio-card-title').textContent.toLowerCase();
+                var preview = card.querySelector('.bio-card-preview');
+                var previewText = preview ? preview.textContent.toLowerCase() : '';
+                var matchKeyword = !keyword || title.indexOf(keyword) > -1 || previewText.indexOf(keyword) > -1;
+                var show = showSection && matchKeyword;
+                card.style.display = show ? 'block' : 'none';
+                if (show) {
+                    sectionHasVisible = true;
+                    hasResult = true;
+                }
+            });
+
+            section.querySelectorAll('.era-group').forEach(function(era) {
+                var eraHasVisible = false;
+                era.querySelectorAll('.bio-card').forEach(function(card) {
+                    if (card.style.display !== 'none') eraHasVisible = true;
+                });
+                era.style.display = eraHasVisible ? 'block' : 'none';
+            });
+
+            section.style.display = sectionHasVisible ? 'block' : 'none';
+        });
+
+        var noResult = document.querySelector('.no-result');
+        if (!noResult) {
+            noResult = document.createElement('div');
+            noResult.className = 'no-result';
+            noResult.textContent = '没有找到匹配的文章';
+            document.getElementById('bioList').appendChild(noResult);
+        }
+        noResult.style.display = hasResult ? 'none' : 'block';
+    }
+
+    personBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            personBtns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            if (btn.getAttribute('href') && btn.getAttribute('href').startsWith('#person-')) {
+                var target = document.querySelector(btn.getAttribute('href'));
+                if (target) {
+                    setTimeout(function() {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+        });
+    });
+
+    searchInput.addEventListener('input', filterContent);
+})();
+</script>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="回到顶部">
+    <i class="fa fa-chevron-up"></i>
+</a>
+<script>
+    (function() {
+        var backToTop = document.getElementById('backToTop');
+        function toggleVisibility() {
+            if (window.pageYOffset > 200) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+        window.addEventListener('scroll', toggleVisibility);
+        window.addEventListener('load', toggleVisibility);
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+</script>

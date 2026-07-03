@@ -1,0 +1,108 @@
+---
+layout: page
+description: "「欢迎来到承挨的小屋」"
+---
+
+<style>
+.bio-entry-card {
+    display: block;
+    padding: 30px 35px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.bio-entry-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    text-decoration: none;
+    color: white;
+}
+.bio-entry-card::after {
+    content: '→';
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    opacity: 0.5;
+    transition: all 0.3s;
+}
+.bio-entry-card:hover::after {
+    opacity: 1;
+    right: 25px;
+}
+.bio-entry-title {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.bio-entry-desc {
+    font-size: 1em;
+    opacity: 0.9;
+}
+</style>
+
+<a href="{{ '/biography/' | prepend: site.baseurl }}" class="bio-entry-card">
+    <div class="bio-entry-title">承挨人物传</div>
+    <div class="bio-entry-desc">记录身边的人，记录那些难忘的时光 →</div>
+</a>
+
+{% assign visible_count = 0 %}
+{% for post in paginator.posts %}{% unless post.hidden or post.categories contains "传记" %}{% assign visible_count = visible_count | plus: 1 %}
+<div class="post-preview">
+    <a href="{{ post.url | prepend: site.baseurl }}">
+        <h2 class="post-title">
+            {{ post.title }}
+        </h2>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">
+            {{ post.subtitle }}
+        </h3>
+        {% endif %}
+        <div class="post-content-preview">
+            {% if post.lang == 'en' %}
+                {{ post.content | strip_html | truncate:300 }}
+            {% else %}
+                {{ post.content | strip_html | truncate:200 }}
+            {% endif %}
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    </p>
+</div>
+<hr>
+{% endunless %}{% endfor %}
+
+{% if visible_count == 0 %}
+<div class="post-preview text-center">
+    <h2 class="post-title" style="color: #999;">暂无文章</h2>
+</div>
+{% endif %}
+
+{% assign visible_all = site.posts | where_exp: "post", "post.hidden != true and post.categories[0] != '传记'" %}
+{% assign total_visible = visible_all.size %}
+<!-- Pager -->
+{% if total_visible > site.paginate %}
+<ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% assign has_next = false %}
+    {% assign posts_from_next = paginator.per_page | times: paginator.page %}
+    {% if visible_all.size > posts_from_next %}{% assign has_next = true %}{% endif %}
+    {% if has_next %}
+    <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
