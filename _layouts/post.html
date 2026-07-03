@@ -28,27 +28,42 @@ layout: default
 				{{ content }}
 
                 <hr style="visibility: hidden;">
+                {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
+                {% assign prev_post = nil %}
+                {% assign next_post = nil %}
+                {% assign found_current = false %}
+                {% for post in visible_posts %}
+                    {% if found_current %}
+                        {% assign next_post = post %}
+                        {% break %}
+                    {% endif %}
+                    {% if post.url == page.url %}
+                        {% assign found_current = true %}
+                    {% else %}
+                        {% assign prev_post = post %}
+                    {% endif %}
+                {% endfor %}
                 <ul class="pager">
-                    {% if page.previous.url %}
+                    {% if prev_post %}
                     <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
+                        <a href="{{ prev_post.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{prev_post.title}}">
                         Previous<br>
-                        <span>{{page.previous.title}}</span>
+                        <span>{{prev_post.title}}</span>
                         </a>
                     </li>
                     {% endif %}
-                    {% if page.next.url %}
+                    {% if next_post %}
                     <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
+                        <a href="{{ next_post.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{next_post.title}}">
                         Next<br>
-                        <span>{{page.next.title}}</span>
+                        <span>{{next_post.title}}</span>
                         </a>
                     </li>
                     {% endif %}
                 </ul>
                 <hr style="visibility: hidden;">
 
-                {% if site.disqus_username %}
+                {% if site.disqus_username and page.comments != false %}
                 <!-- disqus 评论框 start -->
                 <head>
   <!-- ... -->
