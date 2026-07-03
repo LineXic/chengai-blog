@@ -23,6 +23,20 @@ description: "「欢迎来到承挨的小屋」"
     text-decoration: none;
     color: white;
 }
+.bio-entry-card::after {
+    content: '→';
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    opacity: 0.5;
+    transition: all 0.3s;
+}
+.bio-entry-card:hover::after {
+    opacity: 1;
+    right: 25px;
+}
 .bio-entry-title {
     font-size: 1.6em;
     font-weight: 600;

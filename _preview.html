@@ -32,6 +32,20 @@
             text-decoration: none;
             color: white;
         }
+        .bio-entry-card::after {
+            content: '→';
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+        .bio-entry-card:hover::after {
+            opacity: 1;
+            right: 25px;
+        }
         .bio-entry-title { font-size: 1.6em; font-weight: 600; margin-bottom: 8px; }
         .bio-entry-desc { font-size: 1em; opacity: 0.9; }
     </style>
