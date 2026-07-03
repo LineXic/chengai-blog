@@ -309,7 +309,8 @@ sidebar: false
             personBtns.forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
             if (btn.getAttribute('href') && btn.getAttribute('href').startsWith('#person-')) {
-                var target = document.querySelector(btn.getAttribute('href'));
+                var targetId = decodeURIComponent(btn.getAttribute('href').substring(1));
+                var target = document.getElementById(targetId);
                 if (target) {
                     setTimeout(function() {
                         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
