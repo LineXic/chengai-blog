@@ -118,11 +118,15 @@ layout: default
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
+                {% unless page.categories contains "传记" %}
                 <!-- Featured Tags -->
                 {% include featured-tags.html bottom=true %}
+                {% endunless %}
 
+                {% unless page.categories contains "传记" %}
                 <!-- Friends Blog -->
                 {% include friends.html %}
+                {% endunless %}
             </div>
         </div>
     </div>
