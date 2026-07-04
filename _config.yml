@@ -73,7 +73,7 @@ netease_comment: false
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
-sidebar-about-description: "一个热爱分享的腐竹"
+sidebar-about-description: "一个热爱分享的小棕熊"
 sidebar-avatar: https://chengai77a6b.top/img/avatar.webp # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
