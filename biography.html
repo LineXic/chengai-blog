@@ -181,7 +181,7 @@ hide-friends: true
 
 <div class="person-nav" id="personNav">
     {% for person in all_persons %}
-    <a href="#person-{{ person | url_encode }}" class="person-btn" data-person="{{ person }}">{{ person }}</a>
+    <a href="#person-{{ person }}" class="person-btn" data-person="{{ person }}">{{ person }}</a>
     {% endfor %}
 </div>
 
@@ -193,7 +193,7 @@ hide-friends: true
 
 {% assign chengai_posts = bio_posts | where: "person", "承挨" | where: "bio-type", "autobiography" | sort: "order" %}
 {% if chengai_posts.size > 0 %}
-<div class="person-section" data-person="承挨" id="person-{{ "承挨" | url_encode }}">
+<div class="person-section" data-person="承挨" id="person-承挨">
     <h2 class="person-section-title">
         承挨自传
         <span class="person-badge badge-autobio">自传</span>
@@ -228,7 +228,7 @@ hide-friends: true
     {% unless person == "承挨" %}
     {% assign person_bio_posts = bio_posts | where: "person", person | sort: "order" %}
     {% if person_bio_posts.size > 0 %}
-<div class="person-section" data-person="{{ person }}" id="person-{{ person | url_encode }}">
+<div class="person-section" data-person="{{ person }}" id="person-{{ person }}">
     <h2 class="person-section-title">
         {{ person }}传
         <span class="person-badge badge-biography">他传</span>
@@ -310,8 +310,8 @@ hide-friends: true
             e.preventDefault();
             personBtns.forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
-            if (btn.getAttribute('href') && btn.getAttribute('href').startsWith('#person-')) {
-                var targetId = decodeURIComponent(btn.getAttribute('href').substring(1));
+            if (btn.getAttribute('href') && btn.getAttribute('href').startsWith('#')) {
+                var targetId = btn.getAttribute('href').substring(1);
                 var target = document.getElementById(targetId);
                 if (target) {
                     setTimeout(function() {
