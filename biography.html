@@ -212,11 +212,8 @@ hide-friends: true
         <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
             <div class="bio-card-title">{{ post.title }}</div>
             <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
-            {% if post.subtitle %}
-            <div class="bio-card-preview">{{ post.subtitle }}</div>
-            {% else %}
-            <div class="bio-card-preview">{{ post.content | strip_html | truncate: 100 }}</div>
-            {% endif %}
+            {% assign preview_text = post.content | strip_html | split: "。" | first %}
+            <div class="bio-card-preview">{{ preview_text }}</div>
         </a>
         {% endfor %}
     </div>
@@ -234,15 +231,12 @@ hide-friends: true
         <span class="person-badge badge-biography">他传</span>
     </h2>
     {% for post in person_bio_posts %}
-    <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
-        <div class="bio-card-title">{{ post.title }}</div>
-        <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
-        {% if post.subtitle %}
-        <div class="bio-card-preview">{{ post.subtitle }}</div>
-        {% else %}
-        <div class="bio-card-preview">{{ post.content | strip_html | truncate: 120 }}</div>
-        {% endif %}
-    </a>
+	    <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
+	        <div class="bio-card-title">{{ post.title }}</div>
+	        <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
+	        {% assign preview_text = post.content | strip_html | split: "。" | first %}
+	        <div class="bio-card-preview">{{ preview_text }}</div>
+	    </a>
     {% endfor %}
 </div>
     {% endif %}
