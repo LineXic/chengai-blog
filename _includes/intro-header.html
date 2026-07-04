@@ -104,7 +104,7 @@
         {% else %}
         <div class="site-heading">
         {% endif %}
-          <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title | replace: '挨', '<span class="ai-highlight">挨</span>' | replace: '屋', '<span class="wu-highlight">屋</span>' }}{% endif %}</h1>
+          <h1>{% if page.title %}{{ page.title | replace: '传', '<span class="wu-highlight">传</span>' }}{% else %}{{ site.title | replace: '挨', '<span class="ai-highlight">挨</span>' | replace: '屋', '<span class="wu-highlight">屋</span>' }}{% endif %}</h1>
           <span class="subheading">{{ page.description }}</span>
         </div>
       </div>
