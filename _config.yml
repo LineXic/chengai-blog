@@ -94,5 +94,10 @@ friends:
       title: "LineXic",
       href: "https://www.linexic.top/",
       avatar: "/img/friend-linexic.webp"
+    },
+    {
+      title: "Luojicat",
+      href: "https://luojimeow.github.io/LUOJICAT/",
+      avatar: "/img/friend-luojicat.gif"
     }
   ]
