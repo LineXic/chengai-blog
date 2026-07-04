@@ -28,19 +28,20 @@ layout: default
 				{{ content }}
 
                 <hr style="visibility: hidden;">
+                {% comment %}site.posts 默认按日期降序（新→旧），所以循环中当前文章之前的是更新的，之后的是更旧的。Previous 应指向更旧，Next 应指向更新。{% endcomment %}
                 {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
                 {% assign prev_post = nil %}
                 {% assign next_post = nil %}
                 {% assign found_current = false %}
                 {% for post in visible_posts %}
                     {% if found_current %}
-                        {% assign next_post = post %}
+                        {% assign prev_post = post %}
                         {% break %}
                     {% endif %}
                     {% if post.url == page.url %}
                         {% assign found_current = true %}
                     {% else %}
-                        {% assign prev_post = post %}
+                        {% assign next_post = post %}
                     {% endif %}
                 {% endfor %}
                 <ul class="pager">
