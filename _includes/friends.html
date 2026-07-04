@@ -1,9 +1,73 @@
-{% if site.friends %}
+{% if site.friends and page.url == '/' %}
 <hr>
 <h5>FRIENDS</h5>
-<ul class="list-inline">
+<ul class="friend-list">
   {% for friend in site.friends %}
-  <li><a href="{{friend.href}}">{{friend.title}}</a></li>
+  <li>
+    <a href="{{ friend.href }}" target="_blank" rel="noopener" class="friend-card" title="{{ friend.title }}">
+      <img src="{{ friend.avatar | prepend: site.baseurl }}" alt="{{ friend.title }}" class="friend-avatar">
+      <span class="friend-name">{{ friend.title }}</span>
+    </a>
+  </li>
   {% endfor %}
 </ul>
+<style>
+  .friend-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .friend-list li {
+    margin-bottom: 10px;
+  }
+  .friend-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .friend-card:hover,
+  .friend-card:focus {
+    background: rgba(102, 126, 234, 0.08);
+    border-color: rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(102, 126, 234, 0.15);
+    text-decoration: none;
+    color: inherit;
+  }
+  .friend-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 2px solid rgba(102, 126, 234, 0.15);
+    flex-shrink: 0;
+  }
+  .friend-name {
+    font-size: 0.95em;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  @media only screen and (max-width: 767px) {
+    .friend-card {
+      padding: 12px;
+    }
+    .friend-avatar {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .friend-name {
+      font-size: 0.9em;
+    }
+  }
+</style>
 {% endif %}
