@@ -9,19 +9,22 @@ description: "「欢迎来到承挨的小屋」"
     padding: 30px 35px;
     margin-top: 40px;
     margin-bottom: 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 12px;
-    color: white;
+    background: rgba(245, 247, 250, 0.92);
+    border: 1px solid rgba(90, 122, 150, 0.1);
+    border-radius: 16px;
+    color: #5a7a96;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 12px rgba(90, 122, 150, 0.06);
 }
 .bio-entry-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 28px rgba(90, 122, 150, 0.14);
     text-decoration: none;
-    color: white;
+    color: #4a6a86;
+    border-color: rgba(90, 122, 150, 0.18);
 }
 .bio-entry-card::after {
     content: '→';
@@ -29,36 +32,74 @@ description: "「欢迎来到承挨的小屋」"
     right: 28px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 1.3em;
+    font-size: 1.2em;
     width: 42px;
     height: 42px;
     line-height: 42px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.18);
+    color: #5a7a96;
+    background: rgba(90, 122, 150, 0.08);
     border-radius: 50%;
-    opacity: 0.7;
-    transition: all 0.3s;
+    opacity: 0.8;
+    transition: all 0.3s ease;
 }
 .bio-entry-card:hover::after {
     opacity: 1;
     right: 22px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(90, 122, 150, 0.15);
 }
 .bio-entry-title {
     font-size: 1.6em;
     font-weight: 600;
     margin-bottom: 8px;
+    color: #4a6a86;
 }
 .bio-entry-desc {
     font-size: 1em;
-    opacity: 0.9;
+    color: #7a96b0;
+}
+.bio-glass {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(90, 122, 150, 0.12) 0%, rgba(90, 122, 150, 0) 65%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+.bio-entry-card:hover .bio-glass {
+    opacity: 1;
+}
+.bio-entry-card .bio-entry-title,
+.bio-entry-card .bio-entry-desc {
+    position: relative;
+    z-index: 1;
 }
 </style>
 
 <a href="{{ '/biography/' | prepend: site.baseurl }}" class="bio-entry-card">
+    <span class="bio-glass"></span>
     <div class="bio-entry-title">承挨人物传</div>
     <div class="bio-entry-desc">记录身边的人，记录那些难忘的时光</div>
 </a>
+
+<script>
+(function () {
+    var card = document.querySelector('.bio-entry-card');
+    if (!card) return;
+    var glass = card.querySelector('.bio-glass');
+    card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        glass.style.left = (e.clientX - rect.left) + 'px';
+        glass.style.top = (e.clientY - rect.top) + 'px';
+    });
+})();
+</script>
 
 {% assign visible_count = 0 %}
 {% for post in paginator.posts %}{% unless post.hidden or post.categories contains "传记" %}{% assign visible_count = visible_count | plus: 1 %}
