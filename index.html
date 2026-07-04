@@ -4,6 +4,12 @@ description: "「欢迎来到承挨的小屋」"
 ---
 
 <style>
+.bio-entry-card,
+.bio-entry-card:hover,
+.bio-entry-card *,
+.bio-entry-card:hover * {
+    text-decoration: none !important;
+}
 .bio-entry-card {
     display: block;
     padding: 30px 35px;
@@ -13,16 +19,19 @@ description: "「欢迎来到承挨的小屋」"
     border: 1px solid rgba(90, 122, 150, 0.1);
     border-radius: 16px;
     color: #5a7a96;
-    text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(90, 122, 150, 0.06);
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 .bio-entry-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 28px rgba(90, 122, 150, 0.14);
-    text-decoration: none;
     color: #4a6a86;
     border-color: rgba(90, 122, 150, 0.18);
 }
@@ -60,16 +69,17 @@ description: "「欢迎来到承挨的小屋」"
 }
 .bio-glass {
     position: absolute;
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(90, 122, 150, 0.12) 0%, rgba(90, 122, 150, 0) 65%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: radial-gradient(circle, rgba(90, 122, 150, 0.14) 0%, rgba(90, 122, 150, 0) 65%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    transform: translate(-50%, -50%);
+    transition: opacity 0.25s ease;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform, opacity;
     z-index: 0;
 }
 .bio-entry-card:hover .bio-glass {
@@ -82,7 +92,7 @@ description: "「欢迎来到承挨的小屋」"
 }
 </style>
 
-<a href="{{ '/biography/' | prepend: site.baseurl }}" class="bio-entry-card">
+<a href="{{ '/biography/' | prepend: site.baseurl }}" class="bio-entry-card" draggable="false">
     <span class="bio-glass"></span>
     <div class="bio-entry-title">承挨人物传</div>
     <div class="bio-entry-desc">记录身边的人，记录那些难忘的时光</div>
@@ -93,10 +103,20 @@ description: "「欢迎来到承挨的小屋」"
     var card = document.querySelector('.bio-entry-card');
     if (!card) return;
     var glass = card.querySelector('.bio-glass');
-    card.addEventListener('mousemove', function (e) {
+    function moveGlass(e) {
         var rect = card.getBoundingClientRect();
         glass.style.left = (e.clientX - rect.left) + 'px';
         glass.style.top = (e.clientY - rect.top) + 'px';
+    }
+    card.addEventListener('mouseenter', function () {
+        glass.style.opacity = '1';
+    });
+    card.addEventListener('mousemove', moveGlass);
+    card.addEventListener('mouseleave', function () {
+        glass.style.opacity = '0';
+    });
+    card.addEventListener('dragstart', function (e) {
+        e.preventDefault();
     });
 })();
 </script>
