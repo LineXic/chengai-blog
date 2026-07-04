@@ -28,41 +28,6 @@ layout: default
 				{{ content }}
 
                 <hr style="visibility: hidden;">
-                {% comment %}site.posts 默认按日期降序（新→旧），所以循环中当前文章之前的是更新的，之后的是更旧的。Previous 应指向更旧，Next 应指向更新。{% endcomment %}
-                {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
-                {% assign prev_post = nil %}
-                {% assign next_post = nil %}
-                {% assign found_current = false %}
-                {% for post in visible_posts %}
-                    {% if found_current %}
-                        {% assign prev_post = post %}
-                        {% break %}
-                    {% endif %}
-                    {% if post.url == page.url %}
-                        {% assign found_current = true %}
-                    {% else %}
-                        {% assign next_post = post %}
-                    {% endif %}
-                {% endfor %}
-                <ul class="pager">
-                    {% if prev_post %}
-                    <li class="previous">
-                        <a href="{{ prev_post.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{prev_post.title}}">
-                        Previous<br>
-                        <span>{{prev_post.title}}</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if next_post %}
-                    <li class="next">
-                        <a href="{{ next_post.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{next_post.title}}">
-                        Next<br>
-                        <span>{{next_post.title}}</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-                <hr style="visibility: hidden;">
 
                 {% if site.disqus_username and page.comments != false %}
                 <!-- disqus 评论框 start -->
