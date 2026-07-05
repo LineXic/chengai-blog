@@ -28,6 +28,41 @@ layout: default
 				{{ content }}
 
                 <hr style="visibility: hidden;">
+                {% comment %}site.posts 默认按日期降序（新→旧），所以循环中当前文章之前的是更新的，之后的是更旧的。Previous 应指向更旧，Next 应指向更新。{% endcomment %}
+                {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
+                {% assign prev_post = nil %}
+                {% assign next_post = nil %}
+                {% assign found_current = false %}
+                {% for post in visible_posts %}
+                    {% if found_current %}
+                        {% assign prev_post = post %}
+                        {% break %}
+                    {% endif %}
+                    {% if post.url == page.url %}
+                        {% assign found_current = true %}
+                    {% else %}
+                        {% assign next_post = post %}
+                    {% endif %}
+                {% endfor %}
+                <ul class="pager">
+                    {% if prev_post %}
+                    <li class="previous">
+                        <a href="{{ prev_post.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{prev_post.title}}">
+                        Previous<br>
+                        <span>{{prev_post.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if next_post %}
+                    <li class="next">
+                        <a href="{{ next_post.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{next_post.title}}">
+                        Next<br>
+                        <span>{{next_post.title}}</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <hr style="visibility: hidden;">
 
                 {% if site.disqus_username and page.comments != false %}
                 <!-- disqus 评论框 start -->
@@ -137,6 +172,76 @@ layout: default
 <!-- disqus 公共JS代码 end -->
 {% endif %}
 
+
+<!-- 图片点击放大 -->
+<style>
+.img-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+.img-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+.img-lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 4px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    cursor: zoom-out;
+}
+.img-lightbox.active img {
+    transform: scale(1);
+}
+.post-container img {
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+</style>
+<div class="img-lightbox" id="imgLightbox">
+    <img src="" alt="放大查看" id="imgLightboxImg">
+</div>
+<script>
+(function() {
+    var lightbox = document.getElementById('imgLightbox');
+    var lightboxImg = document.getElementById('imgLightboxImg');
+    var postImages = document.querySelectorAll('.post-container img');
+
+    postImages.forEach(function(img) {
+        img.addEventListener('click', function(e) {
+            e.preventDefault();
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    lightbox.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+})();
+</script>
 
 {% if site.anchorjs %}
 <!-- async load function -->
