@@ -77,6 +77,18 @@ layout: default
     max-width: 28%;
     max-height: 280px;
 }
+.post-container .img-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 20px auto;
+}
+.post-container .img-row img.long-screenshot {
+    margin: 0;
+    max-width: 45%;
+    max-height: 280px;
+}
 @media (max-width: 768px) {
     .post-container img {
         max-width: 90%;
@@ -84,6 +96,13 @@ layout: default
     }
     .post-container img.long-screenshot {
         max-width: 45%;
+        max-height: 220px;
+    }
+    .post-container .img-row {
+        gap: 10px;
+    }
+    .post-container .img-row img.long-screenshot {
+        max-width: 48%;
         max-height: 220px;
     }
 }
