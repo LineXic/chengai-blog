@@ -64,6 +64,23 @@ layout: default
                 </ul>
                 <hr style="visibility: hidden;">
 
+<style>
+.post-container img {
+    max-width: 70%;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+@media (max-width: 768px) {
+    .post-container img {
+        max-width: 90%;
+        max-height: 400px;
+    }
+}
+</style>
+
                 {% if site.disqus_username and page.comments != false %}
                 <!-- disqus 评论框 start -->
                 <head>
