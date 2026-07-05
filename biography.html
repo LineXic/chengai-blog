@@ -81,17 +81,31 @@ hide-friends: true
     background: white;
     border: 1px solid #eee;
     border-radius: 8px;
-    text-decoration: none;
+    text-decoration: none !important;
     color: #333;
     transition: all 0.3s;
     border-left: 4px solid transparent;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
-.bio-card:hover {
+.bio-card:hover,
+.bio-card:focus,
+.bio-card:active {
     border-left-color: #0085a1;
     box-shadow: 0 2px 15px rgba(0,0,0,0.08);
     transform: translateX(5px);
-    text-decoration: none;
+    text-decoration: none !important;
     color: #333;
+}
+.bio-card * {
+    text-decoration: none !important;
+    -webkit-user-drag: none;
+}
+.bio-card .bio-card-title,
+.bio-card .bio-card-meta,
+.bio-card .bio-card-preview {
+    pointer-events: none;
 }
 .bio-card-title {
     font-size: 1.2em;
@@ -209,7 +223,7 @@ hide-friends: true
         <h3 class="era-title">{{ era }}</h3>
         {% assign era_posts = chengai_posts | where: "era", era | sort: "order" %}
         {% for post in era_posts %}
-        <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
+        <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card" draggable="false">
             <div class="bio-card-title">{{ post.title }}</div>
             <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
             {% assign preview_text = post.content | strip_html | split: "。" | first %}
@@ -231,7 +245,7 @@ hide-friends: true
         <span class="person-badge badge-biography">他传</span>
     </h2>
     {% for post in person_bio_posts %}
-	    <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card">
+	    <a href="{{ post.url | prepend: site.baseurl }}" class="bio-card" draggable="false">
 	        <div class="bio-card-title">{{ post.title }}</div>
 	        <div class="bio-card-meta">{{ post.date | date: "%Y年%m月%d日" }}</div>
 	        {% assign preview_text = post.content | strip_html | split: "。" | first %}
