@@ -247,7 +247,7 @@ layout: default
 <div id="imageViewer" class="image-viewer-overlay">
     <span class="image-viewer-close">&times;</span>
     <img src="" alt="">
-    <span class="image-viewer-hint">滚轮 / 双指捏合缩放 · 拖动平移 · 点击空白关闭</span>
+
 </div>
 <script>
 (function() {
@@ -300,13 +300,40 @@ layout: default
         return Math.min(Math.max(s, 0.3), 8);
     }
 
+    function findParentLink(el) {
+        while (el && el !== document.body) {
+            if (el.tagName === 'A') return el;
+            el = el.parentNode;
+        }
+        return null;
+    }
+
+    function handleImageActivate(e) {
+        var img = e.target;
+        if (!img || img.tagName !== 'IMG') return;
+        if (!img.closest('.post-container')) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var link = findParentLink(img);
+        if (link) {
+            link.addEventListener('click', function(ev) {
+                ev.preventDefault();
+                ev.stopPropagation();
+            }, { once: true });
+        }
+
+        if (e.type === 'click') {
+            openViewer(img.src);
+        }
+    }
+
+    document.addEventListener('click', handleImageActivate, true);
+    document.addEventListener('touchstart', handleImageActivate, { passive: false, capture: true });
+
     document.querySelectorAll('.post-container img').forEach(function(img) {
         img.style.cursor = 'zoom-in';
-        img.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            openViewer(img.src);
-        });
         img.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
