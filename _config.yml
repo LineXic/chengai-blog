@@ -1,7 +1,7 @@
 # Site settings
 title: 承挨的小屋
 SEOTitle: 承挨的小屋 | 一个不漏雨的小轩陋室
-header-img: img/home-banner.webp
+header-img: img/site/home-banner.webp
 email: 478761674@qq.com
 description: "一个不漏雨的小轩陋室"
 keyword: "承挨,承挨博客,承挨的小屋,Minecraft,火蝾螈服务器,承挨个人博客,web,jekyll,blog,chengai"
@@ -74,7 +74,7 @@ netease_comment: false
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
 sidebar-about-description: "一个热爱分享的小棕熊"
-sidebar-avatar: https://chengai77a6b.top/img/avatar.webp # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: https://chengai77a6b.top/img/site/avatar.webp # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
 featured-tags: true # whether or not using Feature-Tags
@@ -93,11 +93,11 @@ friends:
     {
       title: "LineXic",
       href: "https://www.linexic.top/",
-      avatar: "/img/friend-linexic.webp"
+      avatar: "/img/friends/friend-linexic.webp"
     },
     {
       title: "Luojicat",
       href: "https://luojimeow.github.io/LUOJICAT/",
-      avatar: "/img/friend-luojicat.gif"
+      avatar: "/img/friends/friend-luojicat.gif"
     }
   ]
