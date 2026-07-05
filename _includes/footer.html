@@ -213,6 +213,22 @@
 {% endunless %}
 
 
+<!-- 外链新标签页打开，站内链接当前页打开 -->
+<script>
+(function() {
+    var siteHost = '{{ site.url }}'.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest('a');
+        if (!a || !a.href) return;
+        var linkHost = a.hostname;
+        if (linkHost && linkHost !== siteHost && linkHost !== window.location.hostname) {
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
+})();
+</script>
+
 <!-- Multi-Lingual -->
 {% if page.multilingual %}
 <!-- Handle Language Change -->
