@@ -72,6 +72,9 @@ layout: default
     height: auto;
     display: block;
     margin: 20px auto;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 .post-container img.long-screenshot {
     max-width: 28%;
@@ -211,8 +214,10 @@ layout: default
     -webkit-user-drag: none;
     -webkit-user-select: none;
     transform-origin: center center;
-    transition: transform 0.08s ease-out;
     will-change: transform;
+}
+.image-viewer-overlay.active img {
+    transition: transform 0.08s ease-out;
 }
 .image-viewer-close {
     position: absolute;
@@ -270,6 +275,17 @@ layout: default
         updateTransform();
         viewer.classList.add('active');
         document.body.style.overflow = 'hidden';
+        viewerImg.onload = function() {
+            var padding = 40;
+            var vw = window.innerWidth - padding * 2;
+            var vh = window.innerHeight - padding * 2;
+            scale = Math.min(1, vw / viewerImg.naturalWidth, vh / viewerImg.naturalHeight);
+            scale = Math.max(scale, 0.1);
+            updateTransform();
+        };
+        if (viewerImg.complete && viewerImg.naturalWidth) {
+            viewerImg.onload();
+        }
     }
 
     function closeViewer() {
@@ -288,7 +304,11 @@ layout: default
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             openViewer(img.src);
+        });
+        img.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
         });
     });
 
