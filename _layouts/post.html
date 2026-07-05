@@ -308,7 +308,7 @@ layout: default
         return null;
     }
 
-    function handleImageActivate(e) {
+    document.addEventListener('click', function(e) {
         var img = e.target;
         if (!img || img.tagName !== 'IMG') return;
         if (!img.closest('.post-container')) return;
@@ -324,13 +324,8 @@ layout: default
             }, { once: true });
         }
 
-        if (e.type === 'click') {
-            openViewer(img.src);
-        }
-    }
-
-    document.addEventListener('click', handleImageActivate, true);
-    document.addEventListener('touchstart', handleImageActivate, { passive: false, capture: true });
+        openViewer(img.src);
+    }, true);
 
     document.querySelectorAll('.post-container img').forEach(function(img) {
         img.style.cursor = 'zoom-in';
