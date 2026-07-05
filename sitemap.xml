@@ -22,7 +22,7 @@ permalink: /sitemap.xml
   {% endfor %}
 
   <!-- 处理文章 -->
-  {% for post in site.posts %}{% unless post.hidden or post.categories contains "传记" %}
+  {% for post in site.posts %}{% unless post.hidden %}
     <url>
       <loc>{{ site.url }}{{ post.url }}</loc>
       <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
