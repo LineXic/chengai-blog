@@ -252,16 +252,18 @@ layout: default
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 2em;
     cursor: pointer;
     z-index: 10000;
     transition: color 0.2s, background 0.2s;
     user-select: none;
+    background: rgba(80, 80, 80, 0.35);
+    border-radius: 8px;
 }
 .image-viewer-nav:hover {
     color: white;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(100, 100, 100, 0.55);
 }
 .image-viewer-nav.prev { left: 56px; border-radius: 8px; }
 .image-viewer-nav.next { right: 56px; border-radius: 8px; }
