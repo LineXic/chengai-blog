@@ -223,15 +223,25 @@ layout: default
     position: absolute;
     top: 16px;
     right: 24px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 2.2em;
+    font-size: 1.9em;
     line-height: 1;
     cursor: pointer;
     z-index: 10000;
-    transition: color 0.2s;
+    transition: color 0.2s, background 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 50%;
 }
 .image-viewer-close:hover {
     color: white;
+    background: rgba(0, 0, 0, 0.65);
 }
 .image-viewer-hint {
     position: absolute;
