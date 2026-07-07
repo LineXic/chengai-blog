@@ -243,9 +243,41 @@ layout: default
     pointer-events: none;
     white-space: nowrap;
 }
+.image-viewer-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 10000;
+    transition: color 0.2s, background 0.2s;
+    user-select: none;
+}
+.image-viewer-nav:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.08);
+}
+.image-viewer-nav.prev { left: 0; border-radius: 0 8px 8px 0; }
+.image-viewer-nav.next { right: 0; border-radius: 8px 0 0 8px; }
+.image-viewer-nav.hidden { display: none; }
+@media (max-width: 768px) {
+    .image-viewer-nav {
+        width: 36px;
+        height: 64px;
+        font-size: 1.6em;
+    }
+}
 </style>
 <div id="imageViewer" class="image-viewer-overlay">
     <span class="image-viewer-close">&times;</span>
+    <span class="image-viewer-nav prev" title="上一张">&#10094;</span>
+    <span class="image-viewer-nav next" title="下一张">&#10095;</span>
     <img src="" alt="">
 
 </div>
@@ -254,6 +286,8 @@ layout: default
     var viewer = document.getElementById('imageViewer');
     var viewerImg = viewer.querySelector('img');
     var closeBtn = viewer.querySelector('.image-viewer-close');
+    var prevBtn = viewer.querySelector('.image-viewer-nav.prev');
+    var nextBtn = viewer.querySelector('.image-viewer-nav.next');
 
     var scale = 1, translateX = 0, translateY = 0;
     var isDragging = false;
@@ -263,18 +297,68 @@ layout: default
     var initialScale = 1;
     var pinchMidpoint = { x: 0, y: 0 };
 
+    var galleryImages = [];
+    var currentIndex = -1;
+
+    function collectGalleryImages() {
+        var container = document.querySelector('.post-container');
+        if (!container) return [];
+        return Array.from(container.querySelectorAll('img')).map(function(img) {
+            return img.src;
+        }).filter(function(src, index, self) {
+            return src && self.indexOf(src) === index;
+        });
+    }
+
+    function updateNavVisibility() {
+        if (galleryImages.length <= 1) {
+            prevBtn.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+        } else {
+            prevBtn.classList.toggle('hidden', currentIndex <= 0);
+            nextBtn.classList.toggle('hidden', currentIndex >= galleryImages.length - 1);
+        }
+    }
+
+    function showImage(index) {
+        if (index < 0 || index >= galleryImages.length) return;
+        currentIndex = index;
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        viewerImg.src = galleryImages[index];
+        updateTransform();
+        updateNavVisibility();
+    }
+
+    function showPrev() {
+        if (currentIndex > 0) showImage(currentIndex - 1);
+    }
+
+    function showNext() {
+        if (currentIndex < galleryImages.length - 1) showImage(currentIndex + 1);
+    }
+
     function updateTransform() {
         viewerImg.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + scale + ')';
     }
 
     function openViewer(src) {
-        viewerImg.src = src;
+        galleryImages = collectGalleryImages();
+        var index = galleryImages.indexOf(src);
+        if (index === -1) {
+            galleryImages = [src];
+            index = 0;
+        }
+        currentIndex = index;
         scale = 1;
         translateX = 0;
         translateY = 0;
         updateTransform();
         viewer.classList.add('active');
         document.body.style.overflow = 'hidden';
+        updateNavVisibility();
+        viewerImg.src = src;
         viewerImg.onload = function() {
             var padding = 40;
             var vw = window.innerWidth - padding * 2;
@@ -337,6 +421,12 @@ layout: default
     viewer.addEventListener('click', function(e) {
         if (e.target === viewer || e.target === closeBtn) {
             closeViewer();
+        } else if (e.target === prevBtn) {
+            e.stopPropagation();
+            showPrev();
+        } else if (e.target === nextBtn) {
+            e.stopPropagation();
+            showNext();
         }
     });
 
@@ -424,8 +514,15 @@ layout: default
     });
 
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && viewer.classList.contains('active')) {
+        if (!viewer.classList.contains('active')) return;
+        if (e.key === 'Escape') {
             closeViewer();
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            showPrev();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            showNext();
         }
     });
 })();
