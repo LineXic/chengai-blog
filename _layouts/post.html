@@ -213,8 +213,14 @@ layout: default
     user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
+    -moz-user-select: none;
     transform-origin: center center;
     will-change: transform;
+    cursor: grab;
+    pointer-events: auto;
+}
+.image-viewer-overlay img:-moz-drag-over {
+    cursor: grab;
 }
 .image-viewer-overlay.active img {
     transition: transform 0.08s ease-out;
@@ -369,6 +375,7 @@ layout: default
         updateTransform();
         viewer.classList.add('active');
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         updateNavVisibility();
         viewerImg.src = src;
         viewerImg.onload = function() {
@@ -387,6 +394,7 @@ layout: default
     function closeViewer() {
         viewer.classList.remove('active');
         document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
         setTimeout(function() {
             viewerImg.src = '';
         }, 250);
@@ -430,6 +438,20 @@ layout: default
         });
     });
 
+    /* Firefox 阻止原生拖拽图片导致光标消失 */
+    viewerImg.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+    });
+    viewer.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+    });
+
+    /* Firefox 查看器打开时彻底阻止页面滚动 */
+    document.addEventListener('wheel', function(e) {
+        if (!viewer.classList.contains('active')) return;
+        e.preventDefault();
+    }, { passive: false });
+
     viewer.addEventListener('click', function(e) {
         if (e.target === viewer || e.target === closeBtn) {
             closeViewer();
@@ -446,7 +468,18 @@ layout: default
         e.preventDefault();
         var delta = e.deltaY || e.detail || 0;
         var factor = delta > 0 ? 0.88 : 1.14;
-        scale = clampScale(scale * factor);
+        var oldScale = scale;
+        var newScale = clampScale(scale * factor);
+        if (newScale === oldScale) return;
+
+        /* 放大中心：横坐标固定图片中心，纵坐标跟随鼠标 */
+        var vpCenterY = window.innerHeight / 2;
+        var mouseRelY = e.clientY - vpCenterY;
+        /* 鼠标位置对应的图片坐标（相对图片中心） */
+        var imgCoordY = (mouseRelY - translateY) / oldScale;
+        /* 缩放后保持该图片点仍在鼠标下方，横坐标不变 */
+        translateY = mouseRelY - imgCoordY * newScale;
+        scale = newScale;
         updateTransform();
     }, { passive: false });
 
