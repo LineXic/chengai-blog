@@ -11,5 +11,5 @@ node_modules
 .jekyll-cache
 */.DS_Store
 */*/.DS_Store
-_preview-*.html
+_preview*.html
 SnowShot_*.png
