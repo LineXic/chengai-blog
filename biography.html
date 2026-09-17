@@ -223,16 +223,22 @@ hide-friends: true
 </style>
 
 {% assign bio_posts = site.categories["传记"] | where_exp: "post", "post.hidden != true" %}
+{% comment %} 人物按登场时间排序（旧→新） {% endcomment %}
+{% assign bio_posts_asc = bio_posts | sort: "date" %}
 {% assign all_persons = '' | split: '' %}
-{% for post in bio_posts %}
+{% for post in bio_posts_asc %}
     {% unless all_persons contains post.person %}
         {% assign all_persons = all_persons | push: post.person %}
     {% endunless %}
 {% endfor %}
 
 <div class="person-nav" id="personNav">
+    {% comment %} 承挨自传按钮置顶 {% endcomment %}
+    <a href="#person-承挨" class="person-btn" data-person="承挨" draggable="false">承挨</a>
     {% for person in all_persons %}
+    {% unless person == "承挨" %}
     <a href="#person-{{ person }}" class="person-btn" data-person="{{ person }}" draggable="false">{{ person }}</a>
+    {% endunless %}
     {% endfor %}
 </div>
 
