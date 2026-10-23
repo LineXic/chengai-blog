@@ -69,6 +69,8 @@ description: "「欢迎来到承挨的小屋」"
 }
 .bio-glass {
     position: absolute;
+    left: 0;
+    top: 0;
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -78,7 +80,7 @@ description: "「欢迎来到承挨的小屋」"
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.25s ease;
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(calc(var(--glass-x, 0px) - 50%), calc(var(--glass-y, 0px) - 50%), 0);
     will-change: transform, opacity;
     z-index: -1;
 }
@@ -105,8 +107,8 @@ description: "「欢迎来到承挨的小屋」"
     var glass = card.querySelector('.bio-glass');
     function moveGlass(e) {
         var rect = card.getBoundingClientRect();
-        glass.style.left = (e.clientX - rect.left) + 'px';
-        glass.style.top = (e.clientY - rect.top) + 'px';
+        glass.style.setProperty('--glass-x', (e.clientX - rect.left) + 'px');
+        glass.style.setProperty('--glass-y', (e.clientY - rect.top) + 'px');
     }
     card.addEventListener('mouseenter', function () {
         glass.style.opacity = '1';
@@ -150,7 +152,7 @@ description: "「欢迎来到承挨的小屋」"
 
 {% if visible_count == 0 %}
 <div class="post-preview text-center">
-    <h2 class="post-title" style="color: #999;">暂无文章</h2>
+    <h2 class="post-title" style="color: #9a8465;">暂无文章</h2>
 </div>
 {% endif %}
 

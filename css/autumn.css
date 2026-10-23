@@ -51,7 +51,26 @@ hr {
 
 header.intro-header {
     position: relative;
-    border-bottom: 1px solid rgba(146, 97, 43, .16);
+    border-bottom: 0;
+}
+
+/* 头图与正文交界的秋枝分隔，替代原来的深色边线 */
+.autumn-divider {
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    z-index: 2;
+    width: min(320px, 70%);
+    height: 26px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background-image: var(--autumn-garland);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 26px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+    opacity: .85;
 }
 
 header.intro-header::before {
@@ -214,6 +233,13 @@ header.intro-header.style-text .page-heading {
     header.intro-header::after {
         background-size: 110px 110px, 90px 90px;
         opacity: .3;
+    }
+
+    .autumn-divider {
+        bottom: 4px;
+        width: min(250px, 74%);
+        height: 22px;
+        background-size: 100% 22px;
     }
 }
 
@@ -393,6 +419,18 @@ header.intro-header.style-text .page-heading {
     color: #6f573a;
 }
 
+/* ---------- 提示条 ---------- */
+
+.paper-snackbar {
+    background-color: #6b4a24;
+    color: #fffaf0;
+    box-shadow: 0 10px 28px rgba(80, 48, 16, .28);
+}
+
+.paper-snackbar .action {
+    color: #ffd98e;
+}
+
 /* ---------- 首页人物传入口 ---------- */
 
 .bio-entry-card {
@@ -417,12 +455,22 @@ header.intro-header.style-text .page-heading {
     background: rgba(179, 115, 42, .2) !important;
 }
 
+.bio-entry-card:focus-visible {
+    outline: 2px solid var(--autumn-gold);
+    outline-offset: 3px;
+}
+
 .bio-entry-title {
     color: #5a452c !important;
 }
 
 .bio-entry-desc {
     color: #8a7152 !important;
+}
+
+/* 跟随指针的毛玻璃光斑改为暖金色 */
+.bio-glass {
+    background: radial-gradient(circle, rgba(198, 128, 48, .22) 0%, rgba(179, 115, 42, .1) 45%, rgba(179, 115, 42, 0) 70%) !important;
 }
 
 /* ---------- 人物传页面 ---------- */
@@ -495,6 +543,26 @@ header.intro-header.style-text .page-heading {
 .bio-card::before,
 .bio-card::after {
     color: var(--autumn-gold) !important;
+}
+
+.bio-card-meta {
+    color: #8a7152 !important;
+}
+
+.bio-card-preview {
+    color: #6b5238 !important;
+}
+
+.badge-autobio {
+    background: #a4661f !important;
+}
+
+.badge-biography {
+    background: #8d6c3f !important;
+}
+
+.no-result {
+    color: #8a7152 !important;
 }
 
 .bio-search input {
@@ -598,6 +666,10 @@ footer .copyright a:focus {
 
 .page-fullscreen footer::before,
 .page-fullscreen footer::after {
+    display: none;
+}
+
+.page-fullscreen .autumn-divider {
     display: none;
 }
 
