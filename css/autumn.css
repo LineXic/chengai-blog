@@ -1,0 +1,540 @@
+/* ============================================================
+   金秋主题 · 页面点缀
+   独立样式层，删除本文件与引用即可回退
+   ============================================================ */
+
+:root {
+    --autumn-paper: #f6ecd7;
+    --autumn-paper-deep: #eedcbb;
+    --autumn-ink: #40352a;
+    --autumn-muted: #8b7659;
+    --autumn-gold: #b3732a;
+    --autumn-gold-deep: #8d4c1c;
+    --autumn-line: rgba(146, 97, 43, .2);
+    --autumn-card: rgba(255, 250, 238, .78);
+    --autumn-shadow: rgba(122, 80, 32, .14);
+    --autumn-leaf: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23b3732a' d='M12 2C6.2 6.4 4.8 12.2 12 22c7.2-9.8 5.8-15.6 0-20z'/%3E%3Cpath fill='none' stroke='%238d4c1c' stroke-width='1.1' d='M12 5.2v14'/%3E%3C/svg%3E");
+    --autumn-leaf-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff6e4' d='M12 2C6.2 6.4 4.8 12.2 12 22c7.2-9.8 5.8-15.6 0-20z'/%3E%3Cpath fill='none' stroke='%23efd7ac' stroke-width='1.1' d='M12 5.2v14'/%3E%3C/svg%3E");
+    --autumn-cluster: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='%23c4863c'%3E%3Cpath d='M60 26c-24 30-13 62 7 75 20-13 31-45 7-75-4-5-9-5-14 0z'/%3E%3Cpath d='M116 64c-16 20-9 41 5 50 13-9 20-30 5-50-3-3-7-3-10 0z' opacity='.78'/%3E%3Cpath d='M42 96c-13 16-7 33 4 40 10-7 16-24 4-40-2-3-5-3-8 0z' opacity='.62'/%3E%3C/g%3E%3Cg stroke='%23a4682a' stroke-width='1.6' fill='none' opacity='.65'%3E%3Cpath d='M60 26c5 18 5 40 3 75'/%3E%3Cpath d='M116 64c3 13 3 29 2 50'/%3E%3Cpath d='M42 96c3 10 3 22 2 40'/%3E%3C/g%3E%3C/svg%3E");
+    --autumn-garland: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 28'%3E%3Cpath d='M0 18Q40 7 80 18T160 18' stroke='%23a9712f' stroke-width='1.2' fill='none' opacity='.4'/%3E%3Cg fill='%23b3732a'%3E%3Cellipse cx='18' cy='12' rx='5.5' ry='2.6' transform='rotate(-30 18 12)'/%3E%3Cellipse cx='44' cy='15' rx='5' ry='2.4' transform='rotate(25 44 15)'/%3E%3Cellipse cx='72' cy='11' rx='5.5' ry='2.6' transform='rotate(-22 72 11)' opacity='.8'/%3E%3Cellipse cx='100' cy='15' rx='5' ry='2.4' transform='rotate(28 100 15)'/%3E%3Cellipse cx='128' cy='11' rx='5.5' ry='2.6' transform='rotate(-24 128 11)' opacity='.85'/%3E%3Cellipse cx='152' cy='15' rx='4.5' ry='2.2' transform='rotate(22 152 15)' opacity='.7'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---------- 全局底色与文字 ---------- */
+
+html {
+    background-color: var(--autumn-paper);
+}
+
+body {
+    background-color: var(--autumn-paper);
+    background-image:
+        radial-gradient(circle at 15% 0%, rgba(222, 166, 82, .12), transparent 40%),
+        linear-gradient(180deg, var(--autumn-paper) 0%, #f8f1e2 480px, #f3e6cc 100%);
+    color: var(--autumn-ink);
+}
+
+::selection {
+    background: rgba(179, 115, 42, .85);
+    color: #fffaf0;
+}
+
+::-moz-selection {
+    background: rgba(179, 115, 42, .85);
+    color: #fffaf0;
+}
+
+hr {
+    border-top-color: var(--autumn-line);
+}
+
+/* ---------- 页头：暖光与落叶 ---------- */
+
+header.intro-header {
+    position: relative;
+    border-bottom: 1px solid rgba(146, 97, 43, .16);
+}
+
+header.intro-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 76% 6%, rgba(255, 198, 106, .28), transparent 46%),
+        linear-gradient(180deg, rgba(96, 56, 16, .18) 0%, rgba(96, 56, 16, .04) 38%, rgba(246, 236, 215, .3) 74%, var(--autumn-paper) 100%);
+}
+
+header.intro-header.style-text::before {
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(222, 166, 82, .16), transparent 55%),
+        linear-gradient(180deg, transparent 0%, rgba(246, 236, 215, .4) 100%);
+}
+
+header.intro-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: var(--autumn-cluster), var(--autumn-cluster);
+    background-repeat: no-repeat;
+    background-position: left -30px bottom -20px, right -22px top 20px;
+    background-size: 190px 190px, 145px 145px;
+    opacity: .42;
+}
+
+header.intro-header.style-text::after {
+    background-size: 115px 115px, 95px 95px;
+    opacity: .3;
+}
+
+header.intro-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+header.intro-header.style-text .site-heading,
+header.intro-header.style-text .post-heading,
+header.intro-header.style-text .page-heading {
+    color: var(--autumn-ink);
+}
+
+/* ---------- 导航：叶饰与暖色悬停 ---------- */
+
+.navbar-custom .navbar-brand::after {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-left: 6px;
+    vertical-align: -1px;
+    background-image: var(--autumn-leaf);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transform: rotate(-10deg);
+    transition: transform .3s ease;
+    opacity: .9;
+}
+
+.navbar-custom .navbar-brand:hover::after {
+    transform: rotate(10deg) translateY(-1px);
+}
+
+.navbar-custom .nav li > a {
+    position: relative;
+}
+
+.navbar-custom .nav li > a::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
+    background-image: var(--autumn-leaf);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0;
+    transform: rotate(-20deg) scale(.6);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+}
+
+.navbar-custom .nav li > a:hover::after,
+.navbar-custom .nav li > a:focus::after {
+    opacity: .95;
+    transform: rotate(0) scale(1);
+}
+
+.navbar-custom .nav li.search-icon > a::after {
+    display: none;
+}
+
+.navbar-custom.invert .nav li > a:hover,
+.navbar-custom.invert .nav li > a:focus,
+.navbar-custom.invert .navbar-brand:hover,
+.navbar-custom.invert .navbar-brand:focus {
+    color: var(--autumn-gold-deep);
+}
+
+.navbar-custom.is-fixed {
+    background-color: rgba(246, 236, 215, .94) !important;
+    border-bottom: 1px solid rgba(146, 97, 43, .18) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-collapse {
+        background: #fbf5e7;
+    }
+
+    .navbar-custom .nav li > a::after {
+        top: 2px;
+        right: 6px;
+    }
+
+    header.intro-header::after {
+        background-size: 110px 110px, 90px 90px;
+        opacity: .3;
+    }
+}
+
+/* ---------- 正文 ---------- */
+
+.post-container a {
+    color: var(--autumn-gold-deep);
+}
+
+.post-container a:hover,
+.post-container a:focus {
+    color: var(--autumn-gold);
+}
+
+.post-container h2::before {
+    border-bottom-color: rgba(146, 97, 43, .26);
+}
+
+.post-container h4,
+.post-container h5,
+.post-container h6 {
+    color: #7d6a53;
+}
+
+.post-container blockquote {
+    color: #7d6a53;
+    background: rgba(255, 250, 238, .5);
+    border-left: 3px solid rgba(179, 115, 42, .45);
+    padding: 4px 18px;
+    border-radius: 0 4px 4px 0;
+}
+
+.post-container img {
+    border-radius: 4px;
+    box-shadow: 0 6px 20px var(--autumn-shadow);
+}
+
+.post-container code {
+    background: rgba(179, 115, 42, .08);
+    color: #7c4a1e;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.post-container pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+.post-preview > a:hover,
+.post-preview > a:focus,
+.post-content-preview:hover,
+.post-meta > a:hover {
+    color: var(--autumn-gold-deep);
+}
+
+.sidebar-container a {
+    color: var(--autumn-muted) !important;
+}
+
+.sidebar-container a:hover,
+.sidebar-container a:active {
+    color: var(--autumn-gold-deep) !important;
+}
+
+.sidebar-container h5 {
+    color: #9a8465;
+}
+
+/* ---------- 分页 / 归档 ---------- */
+
+.pager li > a {
+    position: relative;
+    background-color: rgba(255, 250, 238, .72);
+    border-color: var(--autumn-line);
+    color: #5c4a36;
+}
+
+.pager li > a > span {
+    color: var(--autumn-muted);
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+    background-color: var(--autumn-gold);
+    border-color: var(--autumn-gold);
+    color: #fffaf0;
+}
+
+.pager li > a:hover > span,
+.pager li > a:focus > span {
+    color: #fff8ea;
+}
+
+.pager li > a::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-image: var(--autumn-leaf-light);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0;
+    transform: rotate(-16deg) scale(.7);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+}
+
+.pager li > a:hover::after,
+.pager li > a:focus::after {
+    opacity: .9;
+    transform: rotate(0) scale(1);
+}
+
+#tag_cloud a {
+    background: #f4e8d2;
+}
+
+#tag_cloud a:hover,
+#tag_cloud a:active,
+#tag_cloud a.focus {
+    background-color: var(--autumn-gold) !important;
+    color: #fffaf0;
+}
+
+#tag_cloud a.tag-button--all {
+    color: var(--autumn-gold-deep) !important;
+}
+
+.listing-seperator {
+    color: var(--autumn-gold) !important;
+}
+
+/* ---------- 搜索页 ---------- */
+
+.search-page {
+    background: #f8f0df;
+    background-image: radial-gradient(circle at 78% 0%, rgba(222, 166, 82, .16), transparent 46%);
+}
+
+#search-input {
+    color: var(--autumn-ink);
+}
+
+.search-icon a,
+.search-icon-close {
+    color: #6f573a;
+}
+
+/* ---------- 首页人物传入口 ---------- */
+
+.bio-entry-card {
+    background: var(--autumn-card) !important;
+    border-color: var(--autumn-line) !important;
+    color: #7a6044 !important;
+    box-shadow: 0 2px 12px var(--autumn-shadow) !important;
+}
+
+.bio-entry-card:hover {
+    border-color: rgba(179, 115, 42, .35) !important;
+    color: #5c452c !important;
+    box-shadow: 0 8px 28px var(--autumn-shadow) !important;
+}
+
+.bio-entry-card::after {
+    color: var(--autumn-gold-deep) !important;
+    background: rgba(179, 115, 42, .1) !important;
+}
+
+.bio-entry-card:hover::after {
+    background: rgba(179, 115, 42, .2) !important;
+}
+
+.bio-entry-title {
+    color: #5a452c !important;
+}
+
+.bio-entry-desc {
+    color: #8a7152 !important;
+}
+
+/* ---------- 人物传页面 ---------- */
+
+.person-nav {
+    background: rgba(255, 250, 238, .78) !important;
+    border: 1px solid var(--autumn-line);
+}
+
+.person-btn {
+    background: rgba(255, 250, 238, .9) !important;
+    border-color: rgba(146, 97, 43, .28) !important;
+    color: #6b5238 !important;
+}
+
+.person-btn::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 12px;
+    margin-right: 5px;
+    vertical-align: -1px;
+    background-image: var(--autumn-leaf);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .55;
+    transition: width .25s ease, margin .25s ease, opacity .25s ease;
+}
+
+.person-btn:hover::before,
+.person-btn.active::before {
+    width: 12px;
+    margin-right: 6px;
+    opacity: .95;
+    background-image: var(--autumn-leaf-light);
+}
+
+.person-btn:hover,
+.person-btn.active {
+    background: var(--autumn-gold) !important;
+    border-color: var(--autumn-gold) !important;
+    color: #fffaf0 !important;
+}
+
+.person-section-title {
+    color: #4a3b2a;
+    border-bottom-color: var(--autumn-gold) !important;
+}
+
+.era-title {
+    color: #6b5a44 !important;
+    border-left-color: var(--autumn-gold) !important;
+}
+
+.bio-card {
+    background: var(--autumn-card) !important;
+    border-color: rgba(146, 97, 43, .16) !important;
+    color: #44382b !important;
+}
+
+.bio-card:hover,
+.bio-card:focus,
+.bio-card:active {
+    border-left-color: var(--autumn-gold) !important;
+    color: #44382b !important;
+    box-shadow: 0 4px 18px var(--autumn-shadow) !important;
+}
+
+.bio-card::before,
+.bio-card::after {
+    color: var(--autumn-gold) !important;
+}
+
+.bio-search input {
+    background: rgba(255, 250, 238, .9);
+    border-color: rgba(146, 97, 43, .24);
+}
+
+.bio-search input:focus {
+    border-color: var(--autumn-gold);
+}
+
+.back-to-top {
+    color: #6b5238 !important;
+    border-color: rgba(146, 97, 43, .2) !important;
+    box-shadow: 0 4px 20px var(--autumn-shadow) !important;
+}
+
+/* ---------- 页脚：落叶花环 ---------- */
+
+footer {
+    position: relative;
+    background: linear-gradient(180deg, rgba(246, 236, 215, 0) 0%, #f2e4c8 26%, #eedcbb 100%);
+    border-top: 1px solid rgba(146, 97, 43, .18);
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 0;
+    width: 100%;
+    height: 26px;
+    pointer-events: none;
+    background-image: var(--autumn-garland);
+    background-repeat: repeat-x;
+    background-position: left center;
+    background-size: 160px 26px;
+    opacity: .5;
+}
+
+footer::after {
+    content: "";
+    position: absolute;
+    right: 4%;
+    bottom: 6px;
+    width: 120px;
+    height: 120px;
+    pointer-events: none;
+    background-image: var(--autumn-cluster);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .22;
+    transform: rotate(155deg);
+}
+
+footer .copyright {
+    color: #7c6a53;
+}
+
+footer .copyright a {
+    color: var(--autumn-gold-deep);
+}
+
+footer .copyright a:hover,
+footer .copyright a:focus {
+    color: var(--autumn-gold);
+}
+
+@media (max-width: 767px) {
+    footer::after {
+        display: none;
+    }
+}
+
+/* 404 全屏页保持原样 */
+.page-fullscreen footer {
+    background: transparent;
+    border-top: none;
+}
+
+.page-fullscreen footer::before,
+.page-fullscreen footer::after {
+    display: none;
+}
+
+/* ---------- 飘落树叶画布 ---------- */
+
+.autumn-leaves-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    pointer-events: none;
+}
+
+/* 减少动态偏好下不显示动画画布 */
+@media (prefers-reduced-motion: reduce) {
+    .autumn-leaves-canvas {
+        display: none;
+    }
+}
