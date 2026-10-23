@@ -60,6 +60,7 @@
             alpha: 1,
             fade: opts.fade !== undefined ? opts.fade : rand(0.002, 0.006),
             color: COLORS[(Math.random() * COLORS.length) | 0],
+            shape: Math.random() < 0.5 ? 'ginkgo' : 'leaf',
             burst: !!opts.burst
         };
     }
@@ -89,10 +90,10 @@
     }
 
     function spawnBurst(x, y) {
-        var count = (W < 768 ? 9 : 13) + ((Math.random() * 4) | 0);
+        var count = (W < 768 ? 8 : 11) + ((Math.random() * 3) | 0);
         for (var i = 0; i < count && leaves.length < MAX_LEAVES; i++) {
             var angle = rand(0, Math.PI * 2);
-            var speed = rand(1.2, 4.4);
+            var speed = rand(1.6, 5);
             leaves.push(createLeaf(x, y, {
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed - 1.4,
@@ -127,14 +128,7 @@
         }
     }
 
-    function drawLeaf(l) {
-        var s = l.size;
-        ctx.save();
-        ctx.translate(l.x, l.y);
-        ctx.rotate(l.rot);
-        ctx.globalAlpha = Math.max(0, Math.min(1, l.alpha));
-        ctx.fillStyle = l.color;
-
+    function drawSimpleLeaf(s) {
         ctx.beginPath();
         ctx.moveTo(0, -s);
         ctx.bezierCurveTo(s * 0.85, -s * 0.55, s * 0.72, s * 0.45, 0, s);
@@ -154,6 +148,56 @@
         ctx.moveTo(0, -s * 0.55);
         ctx.lineTo(0, s * 0.75);
         ctx.stroke();
+    }
+
+    function drawGinkgoLeaf(s) {
+        ctx.beginPath();
+        ctx.moveTo(0, s * 0.8);
+        ctx.quadraticCurveTo(-s * 0.95, s * 0.1, -s * 0.55, -s * 0.65);
+        ctx.quadraticCurveTo(-s * 0.25, -s * 0.95, 0, -s * 0.72);
+        ctx.quadraticCurveTo(s * 0.25, -s * 0.95, s * 0.55, -s * 0.65);
+        ctx.quadraticCurveTo(s * 0.95, s * 0.1, 0, s * 0.8);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(122, 74, 28, .2)';
+        ctx.lineWidth = Math.max(0.6, s * 0.06);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(255, 246, 222, .4)';
+        ctx.lineWidth = Math.max(0.5, s * 0.05);
+        ctx.beginPath();
+        ctx.moveTo(0, s * 0.75);
+        ctx.lineTo(-s * 0.45, -s * 0.55);
+        ctx.moveTo(0, s * 0.75);
+        ctx.lineTo(-s * 0.2, -s * 0.72);
+        ctx.moveTo(0, s * 0.75);
+        ctx.lineTo(s * 0.2, -s * 0.72);
+        ctx.moveTo(0, s * 0.75);
+        ctx.lineTo(s * 0.45, -s * 0.55);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(122, 74, 28, .35)';
+        ctx.lineWidth = Math.max(0.8, s * 0.09);
+        ctx.beginPath();
+        ctx.moveTo(0, s * 0.78);
+        ctx.lineTo(0, s * 1.28);
+        ctx.stroke();
+    }
+
+    function drawLeaf(l) {
+        var s = l.size;
+        ctx.save();
+        ctx.translate(l.x, l.y);
+        ctx.rotate(l.rot);
+        ctx.globalAlpha = Math.max(0, Math.min(1, l.alpha));
+        ctx.fillStyle = l.color;
+
+        if (l.shape === 'ginkgo') {
+            drawGinkgoLeaf(s);
+        } else {
+            drawSimpleLeaf(s);
+        }
 
         ctx.restore();
     }

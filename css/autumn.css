@@ -62,7 +62,7 @@ header.intro-header::before {
     pointer-events: none;
     background:
         radial-gradient(ellipse at 76% 6%, rgba(255, 198, 106, .28), transparent 46%),
-        linear-gradient(180deg, rgba(96, 56, 16, .18) 0%, rgba(96, 56, 16, .04) 38%, rgba(246, 236, 215, .3) 74%, var(--autumn-paper) 100%);
+        linear-gradient(180deg, rgba(96, 56, 16, .16) 0%, rgba(96, 56, 16, .03) 38%, rgba(246, 236, 215, .2) 78%, var(--autumn-paper) 100%);
 }
 
 header.intro-header.style-text::before {
@@ -82,6 +82,16 @@ header.intro-header::after {
     background-position: left -30px bottom -20px, right -22px top 20px;
     background-size: 190px 190px, 145px 145px;
     opacity: .42;
+    animation: autumn-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes autumn-drift {
+    from {
+        background-position: left -30px bottom -20px, right -22px top 20px;
+    }
+    to {
+        background-position: left -24px bottom -14px, right -28px top 26px;
+    }
 }
 
 header.intro-header.style-text::after {
@@ -167,6 +177,30 @@ header.intro-header.style-text .page-heading {
     backdrop-filter: blur(10px);
 }
 
+@media (min-width: 768px) {
+    .navbar-custom .nav li > a::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 10px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--autumn-gold), transparent);
+        transform: scaleX(0);
+        transition: transform .25s ease;
+        pointer-events: none;
+    }
+
+    .navbar-custom .nav li > a:hover::before,
+    .navbar-custom .nav li > a:focus::before {
+        transform: scaleX(1);
+    }
+
+    .navbar-custom .nav li.search-icon > a::before {
+        display: none;
+    }
+}
+
 @media (max-width: 767px) {
     .navbar-default .navbar-collapse {
         background: #fbf5e7;
@@ -196,6 +230,20 @@ header.intro-header.style-text .page-heading {
 
 .post-container h2::before {
     border-bottom-color: rgba(146, 97, 43, .26);
+}
+
+.post-container h2::after {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-left: 8px;
+    vertical-align: -1px;
+    background-image: var(--autumn-leaf);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .55;
 }
 
 .post-container h4,
@@ -248,6 +296,18 @@ header.intro-header.style-text .page-heading {
 
 .sidebar-container h5 {
     color: #9a8465;
+}
+
+.side-catalog .catalog-toggle {
+    color: #6b5238;
+}
+
+.side-catalog .catalog-body .active {
+    background-color: rgba(179, 115, 42, .1);
+}
+
+.side-catalog .catalog-body .active a {
+    color: var(--autumn-gold-deep) !important;
 }
 
 /* ---------- 分页 / 归档 ---------- */
@@ -447,9 +507,19 @@ header.intro-header.style-text .page-heading {
 }
 
 .back-to-top {
+    background: rgba(255, 250, 238, .84) !important;
     color: #6b5238 !important;
-    border-color: rgba(146, 97, 43, .2) !important;
+    border-color: rgba(146, 97, 43, .22) !important;
     box-shadow: 0 4px 20px var(--autumn-shadow) !important;
+}
+
+.back-to-top:hover,
+.back-to-top:focus,
+.back-to-top:active {
+    background: var(--autumn-gold) !important;
+    color: #fffaf0 !important;
+    border-color: var(--autumn-gold) !important;
+    box-shadow: 0 6px 26px var(--autumn-shadow) !important;
 }
 
 /* ---------- 页脚：落叶花环 ---------- */
@@ -489,6 +559,16 @@ footer::after {
     background-size: contain;
     opacity: .22;
     transform: rotate(155deg);
+    animation: autumn-sway 11s ease-in-out infinite alternate;
+}
+
+@keyframes autumn-sway {
+    from {
+        transform: rotate(153deg);
+    }
+    to {
+        transform: rotate(158deg);
+    }
 }
 
 footer .copyright {
@@ -532,9 +612,20 @@ footer .copyright a:focus {
     pointer-events: none;
 }
 
-/* 减少动态偏好下不显示动画画布 */
+/* 减少动态偏好：关闭所有装饰动画 */
 @media (prefers-reduced-motion: reduce) {
     .autumn-leaves-canvas {
         display: none;
+    }
+
+    header.intro-header::after,
+    footer::after {
+        animation: none;
+    }
+
+    .navbar-custom .navbar-brand::after,
+    .navbar-custom .nav li > a::before,
+    .navbar-custom .nav li > a::after {
+        transition: none;
     }
 }
