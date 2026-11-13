@@ -1,0 +1,710 @@
+/* ============================================================
+   寒冬主题 · 页面点缀
+   独立样式层，删除本文件与引用即可回退
+   ============================================================ */
+
+:root {
+    --winter-snow: #f5f9fd;
+    --winter-snow-deep: #e3eef7;
+    --winter-ink: #2e3c4a;
+    --winter-muted: #7c8fa1;
+    --winter-ice: #5c86a8;
+    --winter-ice-deep: #3c6485;
+    --winter-line: rgba(92, 134, 168, .22);
+    --winter-card: rgba(255, 255, 255, .8);
+    --winter-shadow: rgba(60, 100, 133, .14);
+    --winter-flake: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c86a8' stroke-width='1.3' stroke-linecap='round'%3E%3Cpath d='M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2L3.8 16.8'/%3E%3Cpath d='M12 6L9.7 3.7M12 6l2.3-2.3M12 18l-2.3 2.3M12 18l2.3 2.3'/%3E%3C/svg%3E");
+    --winter-flake-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.4' stroke-linecap='round'%3E%3Cpath d='M12 2.5v19M3.8 7.2l16.4 9.6M20.2 7.2L3.8 16.8'/%3E%3Cpath d='M12 6L9.7 3.7M12 6l2.3-2.3M12 18l-2.3 2.3M12 18l2.3 2.3'/%3E%3C/svg%3E");
+    --winter-cluster: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%238fb6d4' stroke-width='1.8' stroke-linecap='round'%3E%3Cg transform='translate(64 52) scale(2.4)'%3E%3Cpath d='M0-10V10M-8.7-5L8.7 5M8.7-5L-8.7 5M0-6L-2.5-8.5M0-6L2.5-8.5M0 6L-2.5 8.5M0 6L2.5 8.5'/%3E%3C/g%3E%3Cg transform='translate(126 106) scale(1.5) rotate(20)' opacity='.75'%3E%3Cpath d='M0-10V10M-8.7-5L8.7 5M8.7-5L-8.7 5M0-6L-2.5-8.5M0-6L2.5-8.5M0 6L-2.5 8.5M0 6L2.5 8.5'/%3E%3C/g%3E%3Cg transform='translate(52 132) scale(1.1) rotate(-15)' opacity='.6'%3E%3Cpath d='M0-10V10M-8.7-5L8.7 5M8.7-5L-8.7 5M0-6L-2.5-8.5M0-6L2.5-8.5M0 6L-2.5 8.5M0 6L2.5 8.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    --winter-drift: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 28'%3E%3Cpath d='M0 21Q20 14 40 21T80 21T120 21T160 21' stroke='%238bb4d4' stroke-width='1.3' fill='none' opacity='.65'/%3E%3Cg stroke='%235c86a8' stroke-width='1.1' stroke-linecap='round' opacity='.9'%3E%3Cg transform='translate(80 11)'%3E%3Cpath d='M0-7V7M-6-3.5L6 3.5M6-3.5L-6 3.5'/%3E%3Cpath d='M0-4.2L-1.7-5.9M0-4.2L1.7-5.9M0 4.2L-1.7 5.9M0 4.2L1.7 5.9'/%3E%3C/g%3E%3C/g%3E%3Cg fill='%23ffffff' stroke='%23a9c8de' stroke-width='.7'%3E%3Ccircle cx='20' cy='18.2' r='2'/%3E%3Ccircle cx='52' cy='20.8' r='1.5'/%3E%3Ccircle cx='108' cy='20.6' r='1.6'/%3E%3Ccircle cx='140' cy='18.4' r='2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---------- 全局底色与文字 ---------- */
+
+html {
+    background-color: var(--winter-snow);
+}
+
+body {
+    background-color: var(--winter-snow);
+    background-image:
+        radial-gradient(circle at 12% 0%, rgba(176, 208, 232, .3), transparent 42%),
+        linear-gradient(180deg, var(--winter-snow) 0%, #eff6fc 480px, #e7f1f9 100%);
+    color: var(--winter-ink);
+}
+
+::selection {
+    background: rgba(92, 134, 168, .85);
+    color: #f7fbff;
+}
+
+::-moz-selection {
+    background: rgba(92, 134, 168, .85);
+    color: #f7fbff;
+}
+
+hr {
+    border-top-color: var(--winter-line);
+}
+
+/* ---------- 页头：冷光与雪花 ---------- */
+
+header.intro-header {
+    position: relative;
+    border-bottom: 0;
+}
+
+/* 头图与正文交界的霜雪分隔 */
+.season-divider {
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    z-index: 2;
+    width: min(340px, 72%);
+    height: 28px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background-image: var(--winter-drift);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 28px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, .85));
+    opacity: .92;
+}
+
+header.intro-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 76% 6%, rgba(200, 226, 245, .32), transparent 46%),
+        linear-gradient(180deg, rgba(28, 56, 84, .18) 0%, rgba(28, 56, 84, .04) 38%, rgba(245, 249, 253, .22) 78%, var(--winter-snow) 100%);
+}
+
+header.intro-header.style-text::before {
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(166, 200, 226, .18), transparent 55%),
+        linear-gradient(180deg, transparent 0%, rgba(245, 249, 253, .45) 100%);
+}
+
+header.intro-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: var(--winter-cluster), var(--winter-cluster);
+    background-repeat: no-repeat;
+    background-position: left -30px bottom -20px, right -22px top 20px;
+    background-size: 190px 190px, 145px 145px;
+    opacity: .42;
+    animation: winter-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes winter-drift {
+    from {
+        background-position: left -30px bottom -20px, right -22px top 20px;
+    }
+    to {
+        background-position: left -24px bottom -14px, right -28px top 26px;
+    }
+}
+
+header.intro-header.style-text::after {
+    background-size: 115px 115px, 95px 95px;
+    opacity: .3;
+}
+
+header.intro-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+header.intro-header.style-text .site-heading,
+header.intro-header.style-text .post-heading,
+header.intro-header.style-text .page-heading {
+    color: var(--winter-ink);
+}
+
+/* 标题暖光改为冷冽冰光 */
+header.intro-header .wu-highlight {
+    color: #f2fbff;
+    text-shadow:
+        0 0 12px rgba(150, 200, 235, .6),
+        0 0 24px rgba(120, 175, 220, .4);
+}
+
+/* ---------- 导航：雪花与冰蓝悬停 ---------- */
+
+.navbar-custom .navbar-brand::after {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-left: 6px;
+    vertical-align: -1px;
+    background-image: var(--winter-flake);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: transform .3s ease;
+    opacity: .9;
+}
+
+.navbar-custom .navbar-brand:hover::after {
+    transform: rotate(45deg) translateY(-1px);
+}
+
+.navbar-custom .nav li > a {
+    position: relative;
+}
+
+.navbar-custom .nav li > a::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
+    background-image: var(--winter-flake);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0;
+    transform: rotate(-25deg) scale(.6);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+}
+
+.navbar-custom .nav li > a:hover::after,
+.navbar-custom .nav li > a:focus::after {
+    opacity: .95;
+    transform: rotate(0) scale(1);
+}
+
+.navbar-custom .nav li.search-icon > a::after {
+    display: none;
+}
+
+.navbar-custom.invert .nav li > a:hover,
+.navbar-custom.invert .nav li > a:focus,
+.navbar-custom.invert .navbar-brand:hover,
+.navbar-custom.invert .navbar-brand:focus {
+    color: var(--winter-ice-deep);
+}
+
+.navbar-custom.is-fixed {
+    background-color: rgba(245, 249, 253, .94) !important;
+    border-bottom: 1px solid rgba(92, 134, 168, .2) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+    .navbar-custom .nav li > a::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 10px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--winter-ice), transparent);
+        transform: scaleX(0);
+        transition: transform .25s ease;
+        pointer-events: none;
+    }
+
+    .navbar-custom .nav li > a:hover::before,
+    .navbar-custom .nav li > a:focus::before {
+        transform: scaleX(1);
+    }
+
+    .navbar-custom .nav li.search-icon > a::before {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-collapse {
+        background: #f8fbfe;
+    }
+
+    .navbar-custom .nav li > a::after {
+        top: 2px;
+        right: 6px;
+    }
+
+    header.intro-header::after {
+        background-size: 110px 110px, 90px 90px;
+        opacity: .32;
+    }
+
+    .season-divider {
+        bottom: 4px;
+        width: min(260px, 76%);
+        height: 24px;
+        background-size: 100% 24px;
+    }
+}
+
+/* ---------- 正文 ---------- */
+
+.post-container a {
+    color: var(--winter-ice-deep);
+}
+
+.post-container a:hover,
+.post-container a:focus {
+    color: var(--winter-ice);
+}
+
+.post-container h2::before {
+    border-bottom-color: rgba(92, 134, 168, .26);
+}
+
+.post-container h2::after {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-left: 8px;
+    vertical-align: -1px;
+    background-image: var(--winter-flake);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .55;
+}
+
+.post-container h4,
+.post-container h5,
+.post-container h6 {
+    color: #62778a;
+}
+
+.post-container blockquote {
+    color: #62778a;
+    background: rgba(255, 255, 255, .55);
+    border-left: 3px solid rgba(92, 134, 168, .45);
+    padding: 4px 18px;
+    border-radius: 0 4px 4px 0;
+}
+
+.post-container img {
+    border-radius: 4px;
+    box-shadow: 0 6px 20px var(--winter-shadow);
+}
+
+.post-container code {
+    background: rgba(92, 134, 168, .1);
+    color: #33587a;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.post-container pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+.post-preview > a:hover,
+.post-preview > a:focus,
+.post-content-preview:hover,
+.post-meta > a:hover {
+    color: var(--winter-ice-deep);
+}
+
+.sidebar-container a {
+    color: var(--winter-muted) !important;
+}
+
+.sidebar-container a:hover,
+.sidebar-container a:active {
+    color: var(--winter-ice-deep) !important;
+}
+
+.sidebar-container h5 {
+    color: #8b9daf;
+}
+
+.side-catalog .catalog-toggle {
+    color: #4f687d;
+}
+
+.side-catalog .catalog-body .active {
+    background-color: rgba(92, 134, 168, .1);
+}
+
+.side-catalog .catalog-body .active a {
+    color: var(--winter-ice-deep) !important;
+}
+
+/* ---------- 分页 / 归档 ---------- */
+
+.pager li > a {
+    position: relative;
+    background-color: rgba(255, 255, 255, .72);
+    border-color: var(--winter-line);
+    color: #3f5468;
+}
+
+.pager li > a > span {
+    color: var(--winter-muted);
+}
+
+.pager li > a:hover,
+.pager li > a:focus {
+    background-color: var(--winter-ice);
+    border-color: var(--winter-ice);
+    color: #f7fbff;
+}
+
+.pager li > a:hover > span,
+.pager li > a:focus > span {
+    color: #eef7fe;
+}
+
+.pager li > a::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-image: var(--winter-flake-light);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0;
+    transform: rotate(-18deg) scale(.7);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+}
+
+.pager li > a:hover::after,
+.pager li > a:focus::after {
+    opacity: .9;
+    transform: rotate(0) scale(1);
+}
+
+#tag_cloud a {
+    background: #e9f2fa;
+}
+
+#tag_cloud a:hover,
+#tag_cloud a:active,
+#tag_cloud a.focus {
+    background-color: var(--winter-ice) !important;
+    color: #f7fbff;
+}
+
+#tag_cloud a.tag-button--all {
+    color: var(--winter-ice-deep) !important;
+}
+
+.listing-seperator {
+    color: var(--winter-ice) !important;
+}
+
+/* ---------- 搜索页 ---------- */
+
+.search-page {
+    background: #f2f8fd;
+    background-image: radial-gradient(circle at 78% 0%, rgba(166, 200, 226, .18), transparent 46%);
+}
+
+#search-input {
+    color: var(--winter-ink);
+}
+
+.search-icon a,
+.search-icon-close {
+    color: #4f687d;
+}
+
+/* ---------- 提示条 ---------- */
+
+.paper-snackbar {
+    background-color: #2f4f6b;
+    color: #f2f8fd;
+    box-shadow: 0 10px 28px rgba(30, 58, 84, .28);
+}
+
+.paper-snackbar .action {
+    color: #bcdcf7;
+}
+
+/* ---------- 首页人物传入口 ---------- */
+
+.bio-entry-card {
+    background: var(--winter-card) !important;
+    border-color: var(--winter-line) !important;
+    color: #4f6c84 !important;
+    box-shadow: 0 2px 12px var(--winter-shadow) !important;
+}
+
+.bio-entry-card:hover {
+    border-color: rgba(92, 134, 168, .38) !important;
+    color: #3c5b74 !important;
+    box-shadow: 0 8px 28px var(--winter-shadow) !important;
+}
+
+.bio-entry-card::after {
+    color: var(--winter-ice-deep) !important;
+    background: rgba(92, 134, 168, .1) !important;
+}
+
+.bio-entry-card:hover::after {
+    background: rgba(92, 134, 168, .2) !important;
+}
+
+.bio-entry-card:focus-visible {
+    outline: 2px solid var(--winter-ice);
+    outline-offset: 3px;
+}
+
+.bio-entry-title {
+    color: #3c5b74 !important;
+}
+
+.bio-entry-desc {
+    color: #7c94a8 !important;
+}
+
+/* 跟随指针的毛玻璃光斑改为霜蓝色 */
+.bio-glass {
+    background: radial-gradient(circle, rgba(140, 185, 220, .26) 0%, rgba(120, 168, 206, .12) 45%, rgba(120, 168, 206, 0) 70%) !important;
+}
+
+/* ---------- 人物传页面 ---------- */
+
+.person-nav {
+    background: rgba(255, 255, 255, .8) !important;
+    border: 1px solid var(--winter-line);
+}
+
+.person-btn {
+    background: rgba(255, 255, 255, .9) !important;
+    border-color: rgba(92, 134, 168, .3) !important;
+    color: #46647d !important;
+}
+
+.person-btn::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 12px;
+    margin-right: 5px;
+    vertical-align: -1px;
+    background-image: var(--winter-flake);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .55;
+    transition: width .25s ease, margin .25s ease, opacity .25s ease;
+}
+
+.person-btn:hover::before,
+.person-btn.active::before {
+    width: 12px;
+    margin-right: 6px;
+    opacity: .95;
+    background-image: var(--winter-flake-light);
+}
+
+.person-btn:hover,
+.person-btn.active {
+    background: var(--winter-ice) !important;
+    border-color: var(--winter-ice) !important;
+    color: #f7fbff !important;
+}
+
+.person-section-title {
+    color: #33475a;
+    border-bottom-color: var(--winter-ice) !important;
+}
+
+.era-title {
+    color: #526a7f !important;
+    border-left-color: var(--winter-ice) !important;
+}
+
+.bio-card {
+    background: var(--winter-card) !important;
+    border-color: rgba(92, 134, 168, .16) !important;
+    color: #33475a !important;
+}
+
+.bio-card:hover,
+.bio-card:focus,
+.bio-card:active {
+    border-left-color: var(--winter-ice) !important;
+    color: #33475a !important;
+    box-shadow: 0 4px 18px var(--winter-shadow) !important;
+}
+
+.bio-card::before,
+.bio-card::after {
+    color: var(--winter-ice) !important;
+}
+
+.bio-card-meta {
+    color: #7c94a8 !important;
+}
+
+.bio-card-preview {
+    color: #526a7c !important;
+}
+
+.badge-autobio {
+    background: #3c6485 !important;
+}
+
+.badge-biography {
+    background: #6f8fa8 !important;
+}
+
+.no-result {
+    color: #7c94a8 !important;
+}
+
+.bio-search input {
+    background: rgba(255, 255, 255, .9);
+    border-color: rgba(92, 134, 168, .26);
+}
+
+.bio-search input:focus {
+    border-color: var(--winter-ice);
+}
+
+.back-to-top {
+    background: rgba(255, 255, 255, .84) !important;
+    color: #46647d !important;
+    border-color: rgba(92, 134, 168, .24) !important;
+    box-shadow: 0 4px 20px var(--winter-shadow) !important;
+}
+
+.back-to-top:hover,
+.back-to-top:focus,
+.back-to-top:active {
+    background: var(--winter-ice) !important;
+    color: #f7fbff !important;
+    border-color: var(--winter-ice) !important;
+    box-shadow: 0 6px 26px var(--winter-shadow) !important;
+}
+
+/* ---------- 页脚：积雪线 ---------- */
+
+footer {
+    position: relative;
+    background: linear-gradient(180deg, rgba(245, 249, 253, 0) 0%, #e9f3fb 26%, #dfeef8 100%);
+    border-top: 1px solid rgba(92, 134, 168, .2);
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: 0;
+    width: 100%;
+    height: 26px;
+    pointer-events: none;
+    background-image: var(--winter-drift);
+    background-repeat: repeat-x;
+    background-position: left center;
+    background-size: 160px 26px;
+    opacity: .55;
+}
+
+footer::after {
+    content: "";
+    position: absolute;
+    right: 4%;
+    bottom: 6px;
+    width: 120px;
+    height: 120px;
+    pointer-events: none;
+    background-image: var(--winter-cluster);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .22;
+    animation: winter-sway 11s ease-in-out infinite alternate;
+}
+
+@keyframes winter-sway {
+    from {
+        transform: rotate(-3deg);
+    }
+    to {
+        transform: rotate(3deg);
+    }
+}
+
+footer .copyright {
+    color: #6b8093;
+}
+
+footer .copyright a {
+    color: var(--winter-ice-deep);
+}
+
+footer .copyright a:hover,
+footer .copyright a:focus {
+    color: var(--winter-ice);
+}
+
+@media (max-width: 767px) {
+    footer::after {
+        display: none;
+    }
+}
+
+/* 404 全屏页保持原样 */
+.page-fullscreen footer {
+    background: transparent;
+    border-top: none;
+}
+
+.page-fullscreen footer::before,
+.page-fullscreen footer::after {
+    display: none;
+}
+
+.page-fullscreen .season-divider {
+    display: none;
+}
+
+/* ---------- 落雪画布 ---------- */
+
+.winter-snow-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    pointer-events: none;
+}
+
+/* 减少动态偏好：关闭所有装饰动画 */
+@media (prefers-reduced-motion: reduce) {
+    .winter-snow-canvas {
+        display: none;
+    }
+
+    header.intro-header::after,
+    footer::after {
+        animation: none;
+    }
+
+    .navbar-custom .navbar-brand::after,
+    .navbar-custom .nav li > a::before,
+    .navbar-custom .nav li > a::after {
+        transition: none;
+    }
+}
