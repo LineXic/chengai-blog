@@ -253,13 +253,31 @@ header.intro-header .wu-highlight {
 
 /* ---------- 正文 ---------- */
 
+/* 正文链接：加深冰蓝 + 常驻底线，便于与正文区分 */
 .post-container a {
-    color: var(--winter-ice-deep);
+    color: #1f5177;
+    text-decoration: underline;
+    text-decoration-color: rgba(86, 133, 170, .78);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    background-image: linear-gradient(180deg, transparent 60%, rgba(178, 212, 238, .42) 60%);
+    border-radius: 2px;
+    transition: color .22s ease, text-decoration-color .22s ease;
 }
 
 .post-container a:hover,
 .post-container a:focus {
-    color: var(--winter-ice);
+    color: #0f3350;
+    text-decoration-color: rgba(31, 81, 119, .95);
+    text-decoration-thickness: 2px;
+    background-image: linear-gradient(180deg, transparent 50%, rgba(178, 212, 238, .62) 50%);
+}
+
+/* 标题锚点与分页按钮不参与该效果 */
+.post-container .anchorjs-link,
+.post-container .pager a {
+    text-decoration: none;
+    background-image: none;
 }
 
 .post-container h2::before {
